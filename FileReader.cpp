@@ -71,6 +71,7 @@ int FileReader::getMaxMinCharactersInLine(bool isMax) {
 }
 
 void FileReader::statisticsOfFile() {
+    std::cout<<"----------------- STATISTICS ----------------- "<<std::endl;
     this->calculateCharOccurences();
     std::cout<<"W pliku mamy: "<<this->charCoutner<<" znakow, uzytkownik podal znak '"<<
     this->findingChar<<"', ktory wystepuje "<< this->getCharOccurency()<<" co daje wartosc: "<< std::round((double )this->getCharOccurency()/
@@ -79,19 +80,17 @@ void FileReader::statisticsOfFile() {
     std::cout<<"Minimalna ilosc linii wynosi: "<<getMaxMinCharactersInLine(false)<<std::endl;
     std::cout<<"Srednia ilosc linii wynosi: "<<this->charCoutner/lines.size()<<std::endl;
 
-
-
 }
 
 
 
 std::string FileReader::reverseLine(std::string line) {
-    if( line.length() == 0 )  // end condtion to stop recursion
+    if( line.length() == 0 )
         return "";
 
-    std::string last(1,line[line.length()-1]);  // create string with last character
+    std::string last(1,line[line.length()-1]);
     std::string reversed = reverseLine(line.substr(0,line.length()-1));
-    return last+reversed; // Make he last character first
+    return last+reversed;
 
 
 }
@@ -128,7 +127,7 @@ std::vector<std::string> FileReader::reverseOneLine(int number) {
 }
 
 std::vector<std::string> FileReader::upperLowerCaseWord(std::string word, bool isUpperCase) {
-    std::vector<std::string> result = lines;
+    std::vector<std::string> result;
     std::string wordChanged = word;
     if(isUpperCase){
         std::transform(wordChanged.begin(), wordChanged.end(),wordChanged.begin(), ::toupper);
@@ -139,7 +138,6 @@ std::vector<std::string> FileReader::upperLowerCaseWord(std::string word, bool i
     for (auto line: lines){
         result.push_back(this-> myReplaceAll(line, word, wordChanged));
 
-
     }
     return result;
 }
@@ -148,7 +146,7 @@ std::string FileReader::myReplaceAll(std::string str, const std::string& from, c
     size_t start_pos = 0;
     while((start_pos = str.find(from, start_pos)) != std::string::npos) {
         str.replace(start_pos, from.length(), to);
-        start_pos += to.length(); // Handles case where 'to' is a substring of 'from'
+        start_pos += to.length();
     }
     return str;
 }
